@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 	}
 	FILE *file;
 	int i = 1;
-	while (*file = fopen(argv[i], "r") && i < argc) {
+	while ((*file = fopen(argv[i], "r")) && i < args)  {
 
 		if (file == NULL) {
 			perror(argv[1]);
