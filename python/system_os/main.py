@@ -1,3 +1,3 @@
 import os
 
-os.system("grep")
+os.system("reboot")

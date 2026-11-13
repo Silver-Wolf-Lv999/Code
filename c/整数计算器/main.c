@@ -1,62 +1,73 @@
-#include <stdio.h>
+#include "stdio.h"
+#include <stddef.h>
 #include <stdlib.h>
-#define MAX_NUM 100
+#include <string.h>
+#define MAX_EX 50
+#define MAX_RESULT 25
 
-int _add(int, int);
-int _mul(int, int);
-int _sub(int, int);
-int _div(int, int);
+int result = 0;
 
+int __add(int, int);
+int __sub(int, int);
+int __mul(int, int);
+int __div(int, int);
+void calculation_process(char *, int);
 
 int main(void) {
-	int 	numbers[MAX_NUM] = {0};
-	int	result 		 = 0;
-	char 	*operatorses[4]	 = {
-		"+",
-		"-",
-		"*",
-		"/"
-	};
-	int  	operators 	 = 0;
-	printf("请输入两个数：\n");
-	scanf("%d%d", &numbers[0], &numbers[1]);
-	printf("请输入要用的运算符(1:add,2:sub,3:mul,4:div：\n");
-	scanf("%d", &operators);
-	switch (operators) {
-		case 1:
-			result = _add(numbers[0], numbers[1]);
-			break;
-		case 2:
-			result = _sub(numbers[0], numbers[1]);
-			break;
-		case 3:
-			result = _mul(numbers[0], numbers[1]);
-			break;
-		case 4:
-			result = _div(numbers[0], numbers[1]);
-			break;
-		default:
-			printf("ERROR");
-			exit(EXIT_FAILURE);
+    char ex[MAX_EX];
+    size_t len_process = 0;
+    size_t len_result = 0;
 
-	}
-	printf("%d %s %d = %d", numbers[0], operatorses[operators - 1], numbers[1], result);
+    fgets(ex, MAX_EX, stdin);
 
-	return EXIT_SUCCESS;
+    len_process = strlen(ex);
+    calculation_process(ex, len_process);
+
+    printf("最后结果为：%d", result);
+
+    return 0;
+
 }
 
-int _add(int num_1, int num_2) {
-	return num_1 + num_2;
+void calculation_process(char *formula, int len_process) {
+    int num = 0;
+    result = formula[0] - '0';
+    for (int i = 1; i < len_process; i+=2) {
+        if (formula[0] == '+' || formula[0] == '*' || formula[0] == '-' || formula[0] == '/' ) {
+            fputs("第一行不是数字", stderr);
+            exit(EXIT_FAILURE);
+        } else {
+            formula[i + 1] = formula[i + 1] - '0';
+            switch (formula[i]) {
+                case '+':
+                    result = __add(result, formula[i+1]);
+                    break;
+                case '-':
+                    result = __sub(result, formula[i+1]);
+                    break;
+                case '*':
+                    result = __mul(result, formula[i+1]);
+                    break;
+                case '/':
+                    result = __div(result, formula[i+1]);
+                    break;
+            }
+        }
+    }
 }
 
-int _mul(int num_1, int num_2) {
-	return num_1 * num_2;
+int __add(int num_1, int num_2) {
+    return num_1 + num_2;
 }
 
-int _sub(int num_1, int num_2) {
-	return num_1 - num_2;
+int __sub(int num_1, int num_2) {
+    return  num_1 - num_2;
 }
 
-int _div(int num_1, int num_2) {
-	return num_1 / num_2;
+int __mul(int num_1, int num_2) {
+    return  num_1 * num_2;
+}
+
+int __div(int num_1, int num_2) {
+    return  num_1 / num_2;
 }
