@@ -1,3 +1,4 @@
+/*
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,7 +9,7 @@ int main(int argc, char *argv[]) {
 	}
 	FILE *file;
 	int i = 1;
-	while ((*file = fopen(argv[i], "r")) && i < args)  {
+	 while ((*file = fopen(argv[i], "r")) && i < args)  {
 
 		if (file == NULL) {
 			perror(argv[1]);
@@ -27,7 +28,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		i++;
-	}
+		}
 
 	if (fclose(file) == EOF) {
 		perror(argv[1]);
@@ -36,3 +37,4 @@ int main(int argc, char *argv[]) {
 
 	return EXIT_SUCCESS;
 }
+*/
